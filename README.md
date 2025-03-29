@@ -1,6 +1,6 @@
-# LEGO Mindstorms MCP Server
+# LEGO Mindstorms NXT MCP Server
 
-This server acts as a Model Context Protocol (MCP) server for controlling a LEGO Mindstorms robot through natural language commands from Claude or other AI assistants.
+This server acts as a Model Context Protocol (MCP) server for controlling a LEGO Mindstorms NXT robot through natural language commands from Claude or other AI assistants.
 
 ## Features
 
@@ -10,20 +10,33 @@ This server acts as a Model Context Protocol (MCP) server for controlling a LEGO
 - Model Context Protocol (MCP) interface
 - Real-time robot control and status tracking
 - Claude Desktop integration
+- NXT Brick auto-detection and connection
 
 ## Setup
 
-1. Install dependencies:
+1. Install system dependencies (required for NXT communication):
+```bash
+# Ubuntu/Debian
+sudo apt-get install libusb-1.0-0-dev
+
+# macOS
+brew install libusb
+
+# Windows
+# Install Mindstorms NXT driver from LEGO website
+```
+
+2. Install Python dependencies:
 ```bash
 pip install -r requirements.txt
 ```
 
-2. Start the server:
+3. Connect your NXT brick via USB and start the server:
 ```bash
 python server.py
 ```
 
-3. Configure Claude Desktop:
+4. Configure Claude Desktop:
 - Copy `claude_desktop_config.json` to your Claude Desktop configuration directory
 - Restart Claude Desktop to load the new configuration
 - The robot control interface will be available as a new capability in Claude Desktop
@@ -129,6 +142,21 @@ Response:
 }
 ```
 
+## Hardware Setup
+
+1. Required Components:
+   - LEGO Mindstorms NXT Brick
+   - Two NXT motors connected to ports A (left) and B (right)
+   - NXT Color Sensor connected to port 1
+   - USB cable for connection
+
+2. Sensor Configuration:
+   - The color sensor should be mounted at the front of the robot
+   - Color sensor values:
+     - Red: Value 5
+     - Green: Value 3
+     - Make sure the sensor is at an appropriate height to detect the circles
+
 ## Sample Prompts
 
 Here are some example natural language commands that the robot understands:
@@ -147,7 +175,7 @@ Here are some example natural language commands that the robot understands:
 
 ### Sample Claude Prompt
 ```
-You are controlling a LEGO Mindstorms robot through an MCP server. The robot can move in basic directions and find colored circles.
+You are controlling a LEGO Mindstorms NXT robot through an MCP server. The robot can move in basic directions and find colored circles.
 
 Current context: The robot is idle and ready for commands.
 ```
@@ -155,8 +183,9 @@ Current context: The robot is idle and ready for commands.
 ## Requirements
 
 - Python 3.8+
-- LEGO Mindstorms EV3
-- ev3dev OS on the robot
+- LEGO Mindstorms NXT
+- USB connection to NXT brick
+- libusb (for NXT communication)
 - Claude Desktop (for natural language control)
 
 ## API Endpoints
