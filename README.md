@@ -30,35 +30,102 @@ python server.py
 
 ## Model Context Protocol (MCP)
 
-The server implements the Model Context Protocol, accepting requests at the `/mcp` endpoint. Messages should be formatted as follows:
+The server implements the Model Context Protocol for natural language robot control. Here are examples of actual message exchanges:
 
+### Example 1: Basic Movement Command
+
+Request:
 ```json
 {
     "messages": [
-        "Previous message 1",
-        "Previous message 2",
-        "Current command for the robot"
+        "Hello, I'd like to control the robot",
+        "Move forward for 2 seconds"
     ],
     "context": {
-        "optional": "context data"
+        "robot_status": {
+            "status": "idle",
+            "position": null,
+            "current_action": null
+        }
     }
 }
 ```
 
-Response format:
+Response:
 ```json
 {
     "response": {
         "status": "success",
-        "message": "Action description"
+        "message": "Moved forward for 2 seconds"
     },
     "context": {
         "robot_status": {
             "status": "idle",
-            "position": "current position",
+            "position": null,
             "current_action": null
         }
     }
+}
+```
+
+### Example 2: Target Navigation
+
+Request:
+```json
+{
+    "messages": [
+        "Move forward for 2 seconds",
+        "Go to the red circle"
+    ],
+    "context": {
+        "robot_status": {
+            "status": "idle",
+            "position": null,
+            "current_action": null
+        }
+    }
+}
+```
+
+Response:
+```json
+{
+    "response": {
+        "status": "success",
+        "message": "Reached red-circle"
+    },
+    "context": {
+        "robot_status": {
+            "status": "idle",
+            "position": "red-circle",
+            "current_action": null
+        }
+    }
+}
+```
+
+### Example 3: Error Handling
+
+Request:
+```json
+{
+    "messages": [
+        "Jump up and down"
+    ],
+    "context": {
+        "robot_status": {
+            "status": "idle",
+            "position": null,
+            "current_action": null
+        }
+    }
+}
+```
+
+Response:
+```json
+{
+    "detail": "Unknown command"
 }
 ```
 
