@@ -1,0 +1,20 @@
+{
+    "name": "LEGO Mindstorms Robot Control",
+    "description": "Control LEGO Mindstorms robot through natural language commands",
+    "version": "1.0.0",
+    "mcp": {
+        "endpoint": "http://localhost:8000/mcp",
+        "method": "POST",
+        "headers": {
+            "Content-Type": "application/json"
+        },
+        "messageField": "messages",
+        "contextField": "context",
+        "responseField": "response.message",
+        "contextUpdateField": "context",
+        "errorField": "detail"
+    },
+    "systemPrompt": "You are controlling a LEGO Mindstorms robot through natural language commands. The robot can:\n- Move in basic directions (forward, backward, left, right)\n- Navigate to colored targets (red circle, green circle)\n- Understand duration commands (e.g., 'move forward for 2 seconds')\n\nPlease help control the robot by interpreting user requests and sending appropriate commands.\n\nCurrent context: The robot is ready for commands.",
+    "temperature": 0.7,
+    "maxTokens": 500
+} 
